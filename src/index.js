@@ -1,9 +1,13 @@
 const { greetings, post } = require('./a-module');
 
 const doSomething = async (...nameGreets) => {
-    const greetingsList = nameGreets.map(nameGreet => greetings(nameGreet))
-    const promises = greetingsList.map(greetings => post(greetings))
-    return Promise.all(promises);
+    try {
+        const greetingsList = nameGreets.map(nameGreet => greetings(nameGreet))
+        const responses = greetingsList.map(greetings => post(greetings))
+        return Promise.all(responses);
+    } catch (err) {
+        return Promise.reject(err)
+    }
 }
 
 module.exports.doSomething = doSomething
